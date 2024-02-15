@@ -19,7 +19,7 @@ if (storedTimestamp && Date.now() - parseInt(storedTimestamp, 10) < SESSION_TIME
         // Password is correct, save the timestamp
         localStorage.setItem(localStorageKey, Date.now().toString());
         console.log('Password is correct. Session saved for 30 minutes.');
-        alert('Successfully logged in! Your session has been saved for 30 minutes.\n\nEnjoy!')
+        alert('Successfully logged in!\nYour session has been saved for 30 minutes.')
         fetchContent(); // Fetch HTML content when the password is correct
     } else {
         alert('Incorrect password. Access denied.');
