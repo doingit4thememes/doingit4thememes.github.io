@@ -7,16 +7,25 @@
     <link rel="icon" type="image/x-icon" href="assets/images/docsfavicon.ico">
     <style>
         body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .background-container {
             background-image: url('assets/images/background.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            margin: 0; /* Remove default margin */
-            padding: 0; /* Remove default padding */
-            height: 100vh; /* Set full viewport height */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
         }
     </style>
 </head>
