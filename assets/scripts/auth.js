@@ -46,7 +46,7 @@ function fetchMainContent() {
         .then(response => response.text())
         .then(html => {
             // Once the password is correct or the session is valid, inject the content into the DOM
-            document.html.innerHTML = html;
+            document.body.innerHTML = html;
         })
         .catch(error => console.error('Error fetching HTML:', error));
 }
