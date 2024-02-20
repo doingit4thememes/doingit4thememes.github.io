@@ -10,7 +10,7 @@ const storedTimestamp = localStorage.getItem(localStorageKey);
 if (storedTimestamp && Date.now() - parseInt(storedTimestamp, 10) < SESSION_TIMEOUT) {
     // Session is still valid, user doesn't need to re-enter the password
     console.log('Session is still valid.');
-    fetchContent(); // Fetch HTML content when the session is still valid
+    fetchMainContent(); // Fetch HTML content when the session is still valid
 } else {
     // Session has expired or is not set, prompt for password
     const enteredPassword = prompt('Please enter the password:');
@@ -22,7 +22,7 @@ if (storedTimestamp && Date.now() - parseInt(storedTimestamp, 10) < SESSION_TIME
         localStorage.setItem(localStorageKey, Date.now().toString());
         console.log('Password is correct. Session saved for 30 minutes.');
         alert('Successfully logged in!\nYour session has been saved for 30 minutes.')
-        fetchContent(); // Fetch HTML content when the password is correct
+        fetchMainContent(); // Fetch HTML content when the password is correct
     } else {
         alert('Incorrect password. Access denied.');
         window.location.href = "https://google.com";
