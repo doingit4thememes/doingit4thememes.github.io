@@ -1,3 +1,5 @@
+fetchUnauthorized();
+
 const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes in milliseconds
 const localStorageKey = 'sessionTimestamp';
 const storedBase64Password = "Y29uZ3JhdHN5b3VkZWNvZGVkaXQ="; // Base64 encoded password
@@ -27,7 +29,18 @@ if (storedTimestamp && Date.now() - parseInt(storedTimestamp, 10) < SESSION_TIME
     }
 }
 
-function fetchContent() {
+function fetchUnauthorized() {
+    // Fetch the HTML content from the 'html' folder
+    fetch('assets/html/unauthorized.html')
+        .then(response => response.text())
+        .then(html => {
+            // Once the password is correct or the session is valid, inject the content into the DOM
+            document.body.innerHTML = html;
+        })
+        .catch(error => console.error('Error fetching HTML:', error));
+}
+
+function fetchMainContent() {
     // Fetch the HTML content from the 'html' folder
     fetch('assets/html/mainpage.html')
         .then(response => response.text())
@@ -35,5 +48,5 @@ function fetchContent() {
             // Once the password is correct or the session is valid, inject the content into the DOM
             document.body.innerHTML = html;
         })
-        .catch(error => console.error('Error fetching loaded.html:', error));
+        .catch(error => console.error('Error fetching HTML:', error));
 }
