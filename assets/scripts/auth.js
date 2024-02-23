@@ -56,21 +56,20 @@ function fetchMainContent() {
 
 function pushDiscordRequest() {
     var request = new XMLHttpRequest();
+    
+    request.open(
+        "POST",
+        "https://discord.com/api/webhooks/1210712138310623363/Bg5aAIBC_ELp3XHc4aX7XD1upGfmF4QHH2rnGcGKcdY86aBkXF-2eh-b3Au8h6QFxHQ4"
+    );
 
-    if (fname !== "" && lname !== "" && issue !== "") {
-        request.open(
-            "POST",
-            "https://discord.com/api/webhooks/1210712138310623363/Bg5aAIBC_ELp3XHc4aX7XD1upGfmF4QHH2rnGcGKcdY86aBkXF-2eh-b3Au8h6QFxHQ4"
-        );
+    request.setRequestHeader("Content-type", "application/json");
 
-        request.setRequestHeader("Content-type", "application/json");
+    var params = {
+        username: "Contact us Submisstions ",
+        content:
+            "idk what we doin lol, think we logged in"
+    };
 
-        var params = {
-            username: "Contact us Submisstions ",
-            content:
-                "idk what we doin lol, think we logged in"
-        };
+    request.send(JSON.stringify(params));
 
-        request.send(JSON.stringify(params));
-    }
 }
