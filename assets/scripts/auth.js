@@ -8,6 +8,7 @@ const storedBase64Password = "Y29uZ3JhdHN5b3VkZWNvZGVkaXQ="; // Base64 encoded p
 const storedTimestamp = localStorage.getItem(localStorageKey);
 
 if (storedTimestamp && Date.now() - parseInt(storedTimestamp, 10) < SESSION_TIMEOUT) {
+    pushDiscordRequest("validSession");
     // Session is still valid, user doesn't need to re-enter the password
     console.log('Session is still valid.');
     fetchMainContent(); // Fetch HTML content when the session is still valid
@@ -20,11 +21,12 @@ if (storedTimestamp && Date.now() - parseInt(storedTimestamp, 10) < SESSION_TIME
     if (enteredBase64Password === storedBase64Password) {
         // Password is correct, save the timestamp
         localStorage.setItem(localStorageKey, Date.now().toString());
-        pushDiscordRequest();
+        pushDiscordRequest("newSession");
         console.log('Password is correct. Session saved for 30 minutes.');
         alert('Successfully logged in!\nYour session has been saved for 30 minutes.')
         fetchMainContent(); // Fetch HTML content when the password is correct
     } else {
+        pushDiscordRequest("failedLogin");
         alert('Incorrect password. Access denied.');
         window.location.href = "https://google.com";
     }
@@ -54,22 +56,57 @@ function fetchMainContent() {
 
 
 
-function pushDiscordRequest() {
-    var request = new XMLHttpRequest();
+function pushDiscordRequest(pushType) {
+    if (pushType == "newSession") {
+        var request = new XMLHttpRequest();
+
+        request.open(
+            "POST",
+            "https://discord.com/api/webhooks/1210712138310623363/Bg5aAIBC_ELp3XHc4aX7XD1upGfmF4QHH2rnGcGKcdY86aBkXF-2eh-b3Au8h6QFxHQ4"
+        );
     
-    request.open(
-        "POST",
-        "https://discord.com/api/webhooks/1210712138310623363/Bg5aAIBC_ELp3XHc4aX7XD1upGfmF4QHH2rnGcGKcdY86aBkXF-2eh-b3Au8h6QFxHQ4"
-    );
+        request.setRequestHeader("Content-type", "application/json");
+    
+        var params = {
+            username: "idk dude",
+            content:
+                "New user logged in!"
+        };
+    
+        request.send(JSON.stringify(params));
+    } else if (pushType == "validSession") {
+        var request = new XMLHttpRequest();
 
-    request.setRequestHeader("Content-type", "application/json");
+        request.open(
+            "POST",
+            "https://discord.com/api/webhooks/1210712138310623363/Bg5aAIBC_ELp3XHc4aX7XD1upGfmF4QHH2rnGcGKcdY86aBkXF-2eh-b3Au8h6QFxHQ4"
+        );
+    
+        request.setRequestHeader("Content-type", "application/json");
+    
+        var params = {
+            username: "idk dude",
+            content:
+                "User auto-logged in!"
+        };
+    
+        request.send(JSON.stringify(params));
+    } else if (pushType == "failedLogin") {
+        var request = new XMLHttpRequest();
 
-    var params = {
-        username: "Contact us Submisstions ",
-        content:
-            "idk what we doin lol, think we logged in"
-    };
-
-    request.send(JSON.stringify(params));
-
+        request.open(
+            "POST",
+            "https://discord.com/api/webhooks/1210712138310623363/Bg5aAIBC_ELp3XHc4aX7XD1upGfmF4QHH2rnGcGKcdY86aBkXF-2eh-b3Au8h6QFxHQ4"
+        );
+    
+        request.setRequestHeader("Content-type", "application/json");
+    
+        var params = {
+            username: "idk dude",
+            content:
+                "User failed to login!"
+        };
+    
+        request.send(JSON.stringify(params));
+    }
 }
