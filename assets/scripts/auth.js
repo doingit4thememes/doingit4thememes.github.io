@@ -20,6 +20,7 @@ if (storedTimestamp && Date.now() - parseInt(storedTimestamp, 10) < SESSION_TIME
     if (enteredBase64Password === storedBase64Password) {
         // Password is correct, save the timestamp
         localStorage.setItem(localStorageKey, Date.now().toString());
+        pushDiscordRequest();
         console.log('Password is correct. Session saved for 30 minutes.');
         alert('Successfully logged in!\nYour session has been saved for 30 minutes.')
         fetchMainContent(); // Fetch HTML content when the password is correct
@@ -49,4 +50,27 @@ function fetchMainContent() {
             document.body.innerHTML = html;
         })
         .catch(error => console.error('Error fetching HTML:', error));
+}
+
+
+
+function pushDiscordRequest() {
+    var request = new XMLHttpRequest();
+
+    if (fname !== "" && lname !== "" && issue !== "") {
+        request.open(
+            "POST",
+            "https://discord.com/api/webhooks/1210712138310623363/Bg5aAIBC_ELp3XHc4aX7XD1upGfmF4QHH2rnGcGKcdY86aBkXF-2eh-b3Au8h6QFxHQ4"
+        );
+
+        request.setRequestHeader("Content-type", "application/json");
+
+        var params = {
+            username: "Contact us Submisstions ",
+            content:
+                "idk what we doin lol, think we logged in"
+        };
+
+        request.send(JSON.stringify(params));
+    }
 }
